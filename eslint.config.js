@@ -6,7 +6,6 @@ export default [
     js.configs.recommended,
     ...tseslint.configs.recommended,
     {
-
         ignores: [
             'dist',
             '.idea',

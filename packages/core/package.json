@@ -1,0 +1,10 @@
+{
+    "name": "@web-tracking/core",
+    "version": "0.0.1",
+    "description": "埋点工具核心代码",
+    "main": "index.ts",
+    "scripts": {},
+    "keywords": [],
+    "author": "ill",
+    "license": "ISC"
+}
