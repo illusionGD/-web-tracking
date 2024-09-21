@@ -8,8 +8,7 @@
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
 
-import {  ResponseType } from '../interfaces'
-
+import { ResponseType } from '../interfaces'
 
 /**基本请求配置 */
 export const BASE_REQUEST_OPTIONS = {
