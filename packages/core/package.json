@@ -1,6 +1,6 @@
 {
   "name": "@web-tracking/core",
-  "version": "0.1.4-alpha.0",
+  "version": "0.1.5-alpha.0",
   "description": "埋点工具核心代码",
   "main": "dist/index.js",
   "module": "dist/index.js",
