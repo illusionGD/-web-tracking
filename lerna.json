@@ -1,15 +1,21 @@
 {
-  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-  "version": "0.1.2",
-  "packages": ["packages/*"],
-  "command": {
-    "version": {
-      "allowBranch": ["master", "release/*"],
-      "amend": true
+    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+    "version": "0.1.2",
+    "packages": [
+        "packages/*"
+    ],
+    "command": {
+        "version": {
+            "allowBranch": [
+                "master",
+                "release/*"
+            ],
+        },
+        "publish": {
+            "ignoreChanges": [
+                "src"
+            ]
+        }
     },
-    "publish": {
-      "ignoreChanges": ["src"]
-    }
-  },
-  "npmClient": "pnpm"
+    "npmClient": "pnpm"
 }
