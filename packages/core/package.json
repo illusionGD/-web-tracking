@@ -1,27 +1,27 @@
 {
-    "name": "@web-tracking/core",
-    "version": "0.1.0",
-    "description": "埋点工具核心代码",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "type": "module",
-    "scripts": {
-        "build": "rimraf dist && rollup -c rollup.config.js"
-    },
-    "keywords": [],
-    "author": "ill",
-    "license": "ISC",
-    "devDependencies": {
-        "@babel/core": "^7.25.2",
-        "@babel/preset-env": "^7.25.4",
-        "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-commonjs": "^26.0.1",
-        "@rollup/plugin-json": "^6.1.0",
-        "@rollup/plugin-node-resolve": "^15.2.3",
-        "@rollup/plugin-terser": "^0.4.4",
-        "@rollup/plugin-typescript": "^11.1.6",
-        "@types/node": "^22.5.5",
-        "rollup": "^3.29.5"
-    }
+  "name": "@web-tracking/core",
+  "version": "0.1.1-alpha.0",
+  "description": "埋点工具核心代码",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "rimraf dist && rollup -c rollup.config.js"
+  },
+  "keywords": [],
+  "author": "ill",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^22.5.5",
+    "rollup": "^3.29.5"
+  }
 }
