@@ -1,17 +1,11 @@
 {
-    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-    "version": "0.1.0",
-    "packages": [
-        "packages/*"
-    ],
-    "command": {
-        "publish": {
-            "ignoreChanges": [
-                "demo",
-                "test",
-                "src"
-            ]
-        }
-    },
-    "npmClient": "pnpm"
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "0.1.1-alpha.0",
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "ignoreChanges": ["demo", "test", "src"]
+    }
+  },
+  "npmClient": "pnpm"
 }
