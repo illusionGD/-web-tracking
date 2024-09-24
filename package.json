@@ -9,6 +9,12 @@
         "lint": "eslint",
         "lint:fix": "eslint \"**/*.{ts,tsx,js}\" --fix",
         "husky:prepare": "husky install",
+        "version:major": "npx lerna version major",
+        "version:minor": "npx lerna version minor",
+        "version:patch": "npx lerna version patch",
+        "version:prerelease": "npx lerna version prerelease",
+        "version:premajor": "npx lerna version premajor",
+        "version:preminor": "npx lerna version preminor",
         "version:prepatch": "npx lerna version prepatch",
         "list": "npx lerna list",
         "changed": "npx lerna changed"

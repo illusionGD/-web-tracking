@@ -5,4 +5,5 @@
 # 发包流程
 
 1. 先提交更改（commit）：`npm run commit`
-2. 发包测试版本：`npm run version:prepatch`
+2. git打tag&push：`npm run version:xxx`，文档：https://github.com/lerna/lerna/tree/main/libs/commands/version#readme
+3. 发布npm包：`npm run publish:`
