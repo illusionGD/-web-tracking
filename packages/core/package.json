@@ -4,7 +4,7 @@
     "description": "埋点工具核心代码",
     "main": "dist/index.js",
     "module": "dist/index.js",
-    "types": "dist/@types/index.d.ts",
+    "types": "dist/index.d.ts",
     "type": "module",
     "scripts": {
         "build": "rimraf dist && rollup -c rollup.config.js"

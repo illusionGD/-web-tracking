@@ -7,21 +7,22 @@ import json from '@rollup/plugin-json'
 const isProduction = process.env.NODE_ENV === 'production'
 /** @type {import('rollup').RollupOptions[]} */
 function getCommonConfig(fileNames) {
-    const inputPathPrefix = ''
-    const outPathPrefix = 'dist'
+    const inputPathPrefix = 'src/'
+    const outPathPrefix = 'dist/'
 
     return fileNames.map((subName) => {
         const plugins = [
-            json(),
-            commonjs(),
+            json(), // json语法
+            commonjs(), // commonjs
             resolve({
                 preferBuiltins: false,
-            }),
-            babel({ babelHelpers: 'bundled' }),
+            }), // node_modules模块
+            babel({ babelHelpers: 'bundled', exclude: 'node_modules' }),
             typescript({
                 tsconfig: './tsconfig.json',
-            }),
-            isProduction && terser(),
+                declarationDir: './',
+            }), // ts语法
+            isProduction && terser(), // 压缩
         ]
 
         const outputName = subName
@@ -30,21 +31,15 @@ function getCommonConfig(fileNames) {
 
         return {
             input: `${inputPathPrefix}${subName ? subName : ''}index.ts`,
-            output: [
-                // {
-                //     file: outPathPrefix + '/cjs/' + outputName,
-                //     format: 'cjs',
-                //     sourcemap: true,
-                // },
-                {
-                    file: outPathPrefix + '/' + outputName,
-                    format: 'es',
-                    sourcemap: true,
-                },
-            ],
+            output: {
+                file: outPathPrefix + outputName,
+                format: 'umd',
+                sourcemap: true,
+                name: subName || 'index',
+            },
             plugins,
         }
     })
 }
-const configs = getCommonConfig(['', 'utils/', 'http/', 'constants/'])
+const configs = getCommonConfig([''])
 export default configs
