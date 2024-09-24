@@ -5,10 +5,11 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "commit": "git add . && git-cz",
+        "commit": "git add . && git-cz && git push --follow-tags",
         "lint": "eslint",
         "lint:fix": "eslint \"**/*.{ts,tsx,js}\" --fix",
         "husky:prepare": "husky install",
+        "version:conventional-graduate": "npx lerna version --force-conventional-graduate",
         "version:major": "npx lerna version major",
         "version:minor": "npx lerna version minor",
         "version:patch": "npx lerna version patch",
