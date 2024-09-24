@@ -9,7 +9,7 @@
             "allowBranch": [
                 "master",
                 "release/*"
-            ],
+            ]
         },
         "publish": {
             "ignoreChanges": [
