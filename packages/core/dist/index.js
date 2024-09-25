@@ -47,90 +47,6 @@
         step((generator = generator.apply(thisArg, _arguments || [])).next());
       });
     }
-    function __generator(thisArg, body) {
-      var _ = {
-          label: 0,
-          sent: function () {
-            if (t[0] & 1) throw t[1];
-            return t[1];
-          },
-          trys: [],
-          ops: []
-        },
-        f,
-        y,
-        t,
-        g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-      return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function () {
-        return this;
-      }), g;
-      function verb(n) {
-        return function (v) {
-          return step([n, v]);
-        };
-      }
-      function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (g && (g = 0, op[0] && (_ = 0)), _) try {
-          if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-          if (y = 0, t) op = [op[0] & 2, t.value];
-          switch (op[0]) {
-            case 0:
-            case 1:
-              t = op;
-              break;
-            case 4:
-              _.label++;
-              return {
-                value: op[1],
-                done: false
-              };
-            case 5:
-              _.label++;
-              y = op[1];
-              op = [0];
-              continue;
-            case 7:
-              op = _.ops.pop();
-              _.trys.pop();
-              continue;
-            default:
-              if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                _ = 0;
-                continue;
-              }
-              if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                _.label = op[1];
-                break;
-              }
-              if (op[0] === 6 && _.label < t[1]) {
-                _.label = t[1];
-                t = op;
-                break;
-              }
-              if (t && _.label < t[2]) {
-                _.label = t[2];
-                _.ops.push(op);
-                break;
-              }
-              if (t[2]) _.ops.pop();
-              _.trys.pop();
-              continue;
-          }
-          op = body.call(thisArg, _);
-        } catch (e) {
-          op = [6, e];
-          y = 0;
-        } finally {
-          f = t = 0;
-        }
-        if (op[0] & 5) throw op[1];
-        return {
-          value: op[0] ? op[1] : void 0,
-          done: true
-        };
-      }
-    }
     typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
       var e = new Error(message);
       return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
@@ -154,7 +70,7 @@
      * Copyright (c) 2024 by efun, All Rights Reserved.
      */
     /**基本请求配置 */
-    var BASE_REQUEST_OPTIONS = {
+    const BASE_REQUEST_OPTIONS = {
         method: 'GET',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -165,7 +81,7 @@
         timeout: 60000,
     };
     /**timestamp数 */
-    var TIMESTAMP_NUMBER = {
+    const TIMESTAMP_NUMBER = {
         /**秒 */
         second: 1000,
         /**分 */
@@ -181,7 +97,7 @@
     };
 
     /** cookie有效期-8小时 */
-    var DEFAULT_COOKIE_EXPIRE_TIME = 1000 * 60 * 60 * 8;
+    const DEFAULT_COOKIE_EXPIRE_TIME = 1000 * 60 * 60 * 8;
     /**
      * 根据传入的key删除对应的cookie
      * @param key
@@ -193,9 +109,9 @@
      * 清除全部cookie
      */
     function clearCookie() {
-        var keys = document.cookie.match(/[^ =;]+(?==)/g);
+        const keys = document.cookie.match(/[^ =;]+(?==)/g);
         if (keys) {
-            for (var i = 0; i < keys.length; i++) {
+            for (let i = 0; i < keys.length; i++) {
                 if (keys[i].indexOf('_') === 0)
                     continue;
                 delCookie(keys[i]);
@@ -208,9 +124,9 @@
      * @returns
      */
     function getCookie(key) {
-        var arrStr = document.cookie.split('; ');
-        for (var i = arrStr.length - 1; i >= 0; i--) {
-            var temp = arrStr[i].split('=');
+        const arrStr = document.cookie.split('; ');
+        for (let i = arrStr.length - 1; i >= 0; i--) {
+            const temp = arrStr[i].split('=');
             if (temp[0].trim() === key) {
                 try {
                     return decodeURIComponent(temp[1]);
@@ -229,14 +145,14 @@
      * @param objHours 过期时间，单位h
      */
     function setCookie(key, val, timestamp, domain) {
-        var expireTime = isInvalidVal(timestamp)
+        const expireTime = isInvalidVal(timestamp)
             ? DEFAULT_COOKIE_EXPIRE_TIME
             : timestamp;
-        var str = key + '=' + encodeURIComponent(val);
+        let str = key + '=' + encodeURIComponent(val);
         if (expireTime && expireTime > 0) {
             // 为时不设定过期时间，浏览器关闭时cookie自动消失，默认为30天
-            var date = new Date();
-            var ms = expireTime;
+            const date = new Date();
+            const ms = expireTime;
             date.setTime(date.getTime() + ms);
             str += '; expires=' + date.toUTCString();
         }
@@ -259,19 +175,19 @@
      * @param timestamp
      */
     function getFormatDate(timestamp, format) {
-        var date = timestamp ? new Date(timestamp) : new Date();
-        var years = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var formatNum = function (num) {
+        const date = timestamp ? new Date(timestamp) : new Date();
+        const years = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const formatNum = (num) => {
             return String(num).padStart(2, '0');
         };
-        var dateStr = "".concat(years, "-").concat(formatNum(month), "-").concat(formatNum(day));
+        let dateStr = `${years}-${formatNum(month)}-${formatNum(day)}`;
         if (format === 'YYYY-MM-DD hh:mm:ss') {
-            var hour = date.getHours();
-            var min = date.getMinutes();
-            var second = date.getSeconds();
-            dateStr += " ".concat(formatNum(hour), ":").concat(formatNum(min), ":").concat(formatNum(second));
+            const hour = date.getHours();
+            const min = date.getMinutes();
+            const second = date.getSeconds();
+            dateStr += ` ${formatNum(hour)}:${formatNum(min)}:${formatNum(second)}`;
         }
         return dateStr;
     }
@@ -282,7 +198,7 @@
      * @returns
      */
     function getLocalStorage(key) {
-        var val = localStorage.getItem(key) || '';
+        const val = localStorage.getItem(key) || '';
         return val ? JSON.parse(val) : val;
     }
     /**
@@ -313,11 +229,11 @@
      * @param expireTime 过期时间，单位ms
      */
     function setLocalItemWithExpire(key, value, expireTime) {
-        var currentTime = new Date().getTime();
-        var expire = currentTime + expireTime;
-        var data = {
-            value: value,
-            expire: expire,
+        const currentTime = new Date().getTime();
+        const expire = currentTime + expireTime;
+        const data = {
+            value,
+            expire,
             date: getFormatDate(expire),
         };
         setLocalStorage(key, data);
@@ -327,12 +243,12 @@
      * @param key
      */
     function getLocalItemWithExpire(key) {
-        var data = getLocalStorage(key);
+        const data = getLocalStorage(key);
         if (!data) {
             return '';
         }
         if (isWidthExpireVal(key)) {
-            var currentTime = getCurrentTimeStamp();
+            const currentTime = getCurrentTimeStamp();
             if (currentTime > data.expire) {
                 removeLocalStorage(key);
                 return '';
@@ -347,12 +263,12 @@
      * 清除已到过期时间的localStorage
      */
     function clearExpiredLocalStorage() {
-        for (var i = 0; i < localStorage.length; i++) {
-            var key = localStorage.key(i) || '';
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i) || '';
             console.log('🚀 ~ key:', key);
             if (isWidthExpireVal(key)) {
-                var currentTime = getCurrentTimeStamp();
-                var expire = getLocalStorage(key).expire;
+                const currentTime = getCurrentTimeStamp();
+                const { expire } = getLocalStorage(key);
                 if (expire && currentTime > expire) {
                     removeLocalStorage(key);
                 }
@@ -361,7 +277,7 @@
     }
     /**是否有超时设置的val */
     function isWidthExpireVal(key) {
-        var data = getLocalStorage(key);
+        const data = getLocalStorage(key);
         if (!data) {
             return false;
         }
@@ -377,20 +293,19 @@
      * @param isEncode 是否encode
      * @returns a=1&b=2...
      */
-    function qsString(obj, isEncode) {
-        if (isEncode === void 0) { isEncode = true; }
+    function qsString(obj, isEncode = true) {
         if (obj instanceof Object) {
-            var str_1 = '';
-            Object.keys(obj).forEach(function (key, index) {
-                str_1 += "".concat(index ? '&' : '').concat(key, "=").concat(isEncode ? encodeURIComponent(obj[key]) : obj[key]);
+            let str = '';
+            Object.keys(obj).forEach((key, index) => {
+                str += `${index ? '&' : ''}${key}=${isEncode ? encodeURIComponent(obj[key]) : obj[key]}`;
             });
-            return str_1;
+            return str;
         }
         else if (typeof obj === 'string') {
             return obj;
         }
         else if (typeof obj === 'number') {
-            return "".concat(obj);
+            return `${obj}`;
         }
         else {
             return '';
@@ -401,7 +316,7 @@
      * @param obj
      */
     function isPlainObject(obj) {
-        var proto, Ctor;
+        let proto, Ctor;
         if (!obj || typeof obj !== 'object')
             return false;
         proto = Object.getPrototypeOf(obj);
@@ -441,27 +356,27 @@
      *
      * Copyright (c) 2024 by efun, All Rights Reserved.
      */
-    var defaultOptions = BASE_REQUEST_OPTIONS;
+    const defaultOptions = BASE_REQUEST_OPTIONS;
     function ajax(url, options) {
-        var _a = Object.assign({}, defaultOptions, options), method = _a.method, params = _a.params, body = _a.body, headers = _a.headers;
-        var xhr = new XMLHttpRequest();
-        var paramStr = qsString(params);
+        const { method, params, body, headers } = Object.assign({}, defaultOptions, options);
+        const xhr = new XMLHttpRequest();
+        const paramStr = qsString(params);
         //启动并发送一个请求
         if ((method === null || method === void 0 ? void 0 : method.toLocaleLowerCase()) === 'get') {
-            xhr.open('GET', "".concat(url).concat(url.includes('?') ? '' : '?').concat(paramStr), true);
+            xhr.open('GET', `${url}${url.includes('?') ? '' : '?'}${paramStr}`, true);
             xhr.send(null);
         }
         else {
             xhr.open('post', url, true);
-            for (var key in headers) {
+            for (const key in headers) {
                 if (Object.prototype.hasOwnProperty.call(headers, key)) {
                     xhr.setRequestHeader(key, headers[key]);
                 }
             }
             xhr.send(formatPostBody(body, headers['Content-Type']));
         }
-        return new Promise(function (resolve, reject) {
-            var result = {
+        return new Promise((resolve, reject) => {
+            const result = {
                 status: xhr.status,
                 statusText: xhr.statusText,
                 headers: {},
@@ -474,8 +389,8 @@
                 if (xhr.readyState !== 4) {
                     return;
                 }
-                var status = xhr.status;
-                var statusText = xhr.statusText;
+                const status = xhr.status;
+                const statusText = xhr.statusText;
                 result.status = status;
                 result.statusText = statusText;
                 if (status >= 200 && status < 400) {
@@ -490,81 +405,62 @@
         });
     }
 
-    var inital = BASE_REQUEST_OPTIONS;
+    const inital = BASE_REQUEST_OPTIONS;
     function fetchRequest(url, config) {
-        return __awaiter(this, void 0, void 0, function () {
-            var options, method, params, body, headers, cache, credentials, responseType, paramsStr, bodyInit, req, status_1, statusText, result, data, _a, error_1;
-            return __generator(this, function (_b) {
-                switch (_b.label) {
-                    case 0:
-                        if (typeof url !== 'string')
-                            throw new TypeError('url must be required and of string type');
-                        options = deepCloneObj(inital);
-                        Object.assign(options, config || {});
-                        method = options.method, params = options.params, body = options.body, headers = options.headers, cache = options.cache, credentials = options.credentials, responseType = options.responseType;
-                        if (params != null) {
-                            paramsStr = qsString(params);
-                            url += "".concat(url.includes('?') ? '' : '?').concat(paramsStr);
-                        }
-                        bodyInit = {
-                            method: method === null || method === void 0 ? void 0 : method.toUpperCase(),
-                            headers: headers,
-                            credentials: credentials,
-                            cache: cache,
-                        };
-                        if (/^(POST|PUT|PATCH)$/i.test(method) && body != null) {
-                            if (isPlainObject(body)) {
-                                bodyInit['body'] = formatPostBody(body, headers['Content-Type']);
-                            }
-                        }
-                        _b.label = 1;
-                    case 1:
-                        _b.trys.push([1, 12, , 13]);
-                        return [4 /*yield*/, fetch(url, bodyInit)];
-                    case 2:
-                        req = _b.sent();
-                        status_1 = req.status, statusText = req.statusText;
-                        result = {
-                            status: status_1,
-                            statusText: statusText,
-                            headers: {},
-                        };
-                        data = null;
-                        if (!(status_1 >= 200 && status_1 < 400)) return [3 /*break*/, 11];
-                        _a = responseType.toUpperCase();
-                        switch (_a) {
-                            case exports.ResponseType.JSON: return [3 /*break*/, 3];
-                            case exports.ResponseType.TEXT: return [3 /*break*/, 5];
-                            case exports.ResponseType.BLOB: return [3 /*break*/, 7];
-                            case exports.ResponseType.ARRAYBUFFER: return [3 /*break*/, 9];
-                        }
-                        return [3 /*break*/, 11];
-                    case 3: return [4 /*yield*/, req.json()];
-                    case 4:
-                        data = _b.sent();
-                        return [3 /*break*/, 11];
-                    case 5: return [4 /*yield*/, req.text()];
-                    case 6:
-                        data = _b.sent();
-                        return [3 /*break*/, 11];
-                    case 7: return [4 /*yield*/, req.blob()];
-                    case 8:
-                        data = _b.sent();
-                        return [3 /*break*/, 11];
-                    case 9: return [4 /*yield*/, req.arrayBuffer()];
-                    case 10:
-                        data = _b.sent();
-                        return [3 /*break*/, 11];
-                    case 11: return [2 /*return*/, Object.assign({
-                            data: data,
-                        }, result)];
-                    case 12:
-                        error_1 = _b.sent();
-                        console.log('fetch请求错误:', error_1);
-                        return [2 /*return*/, error_1];
-                    case 13: return [2 /*return*/];
+        return __awaiter(this, void 0, void 0, function* () {
+            if (typeof url !== 'string')
+                throw new TypeError('url must be required and of string type');
+            const options = deepCloneObj(inital);
+            Object.assign(options, config || {});
+            const { method, params, body, headers, cache, credentials, responseType } = options;
+            if (params != null) {
+                const paramsStr = qsString(params);
+                url += `${url.includes('?') ? '' : '?'}${paramsStr}`;
+            }
+            const bodyInit = {
+                method: method === null || method === void 0 ? void 0 : method.toUpperCase(),
+                headers,
+                credentials,
+                cache,
+            };
+            if (/^(POST|PUT|PATCH)$/i.test(method) && body != null) {
+                if (isPlainObject(body)) {
+                    bodyInit['body'] = formatPostBody(body, headers['Content-Type']);
                 }
-            });
+            }
+            try {
+                const req = yield fetch(url, bodyInit);
+                const { status, statusText } = req;
+                const result = {
+                    status,
+                    statusText,
+                    headers: {},
+                };
+                let data = null;
+                if (status >= 200 && status < 400) {
+                    switch (responseType.toUpperCase()) {
+                        case exports.ResponseType.JSON:
+                            data = yield req.json();
+                            break;
+                        case exports.ResponseType.TEXT:
+                            data = yield req.text();
+                            break;
+                        case exports.ResponseType.BLOB:
+                            data = yield req.blob();
+                            break;
+                        case exports.ResponseType.ARRAYBUFFER:
+                            data = yield req.arrayBuffer();
+                            break;
+                    }
+                }
+                return Object.assign({
+                    data,
+                }, result);
+            }
+            catch (error) {
+                console.log('fetch请求错误:', error);
+                return error;
+            }
         });
     }
 
@@ -577,21 +473,21 @@
      *
      * Copyright (c) 2024 by efun, All Rights Reserved.
      */
-    var defaultConfig = {
+    const defaultConfig = {
         timeout: 60000,
         params: {},
     };
-    var count = 0;
+    const count = 0;
     function jsonp(url, opts) {
         if (!window) {
             return Promise.reject('it is not browser env!');
         }
         // 实现Promise化
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
             //设置默认参数
-            var _a = Object.assign({}, defaultConfig, opts), timeout = _a.timeout, params = _a.params;
-            var name = 'jsonpcallback' + new Date().getTime() + count;
-            var timer = null;
+            const { timeout, params } = Object.assign({}, defaultConfig, opts);
+            const name = 'jsonpcallback' + new Date().getTime() + count;
+            let timer = null;
             //清除script标签以及注册的全局函数以及超时定时器
             function cleanup() {
                 // 清除函数
@@ -605,13 +501,13 @@
             }
             if (!isInvalidVal(timeout)) {
                 // 超时
-                timer = setTimeout(function () {
+                timer = setTimeout(() => {
                     cleanup();
                     reject('timeout');
                 }, timeout);
             }
             // 注册全局函数，等待执行中...
-            window[name] = function (res) {
+            window[name] = (res) => {
                 // 只要这个函数一执行，就表示请求成功，可以使用清除函数了
                 if (window[name]) {
                     cleanup();
@@ -620,90 +516,75 @@
                 resolve(res);
             };
             // 以下将params对象格式的参数拼接到url的后面
-            var str = '';
+            let str = '';
             if (isPlainObject(params)) {
-                for (var key in params) {
-                    var value = params[key] || '';
-                    str += "&".concat(key, "=").concat(encodeURIComponent(value));
+                for (const key in params) {
+                    const value = params[key] || '';
+                    str += `&${key}=${encodeURIComponent(value)}`;
                 }
             }
             url = url + (url.indexOf('?') > 0 ? '' : '?') + str.substr(1);
             // 最后加上与服务端协商的jsonp请求字段
-            url = "".concat(url, "&callback=").concat(name);
-            var script = document.createElement('script');
+            url = `${url}&callback=${name}`;
+            const script = document.createElement('script');
             script.src = url;
             // 以下这条执行且成功后，全局等待函数就会被执行
             document.head.appendChild(script);
         });
     }
 
-    var Http = /** @class */ (function () {
-        function Http() {
+    class Http {
+        constructor() {
             /** 是否支持fetch */
             this.supportFetch = true;
             this.jsonp = jsonp;
             this.supportFetch = !!window.fetch;
         }
-        Http.prototype.get = function (url, params) {
-            return __awaiter(this, void 0, void 0, function () {
-                var method, data, data;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            method = 'GET';
-                            if (!this.supportFetch) return [3 /*break*/, 2];
-                            return [4 /*yield*/, fetchRequest(url, {
-                                    method: method,
-                                    params: params,
-                                })];
-                        case 1:
-                            data = (_a.sent()).data;
-                            return [2 /*return*/, data];
-                        case 2: return [4 /*yield*/, ajax(url, {
-                                method: method,
-                                params: params,
-                            })];
-                        case 3:
-                            data = (_a.sent()).data;
-                            return [2 /*return*/, data];
-                    }
-                });
+        get(url, params) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const method = 'GET';
+                if (this.supportFetch) {
+                    const { data } = yield fetchRequest(url, {
+                        method,
+                        params,
+                    });
+                    return data;
+                }
+                else {
+                    const { data } = yield ajax(url, {
+                        method,
+                        params,
+                    });
+                    return data;
+                }
             });
-        };
-        Http.prototype.post = function (url, body, opts) {
-            return __awaiter(this, void 0, void 0, function () {
-                var method, headers, options, data, data;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
-                        case 0:
-                            method = 'POST';
-                            headers = {
-                                'Content-Type': 'application/json;charset=utf-8',
-                            };
-                            options = {
-                                method: method,
-                                headers: headers,
-                                body: body,
-                            };
-                            if (opts) {
-                                Object.assign(options, opts);
-                            }
-                            if (!this.supportFetch) return [3 /*break*/, 2];
-                            return [4 /*yield*/, fetchRequest(url, options)];
-                        case 1:
-                            data = (_a.sent()).data;
-                            return [2 /*return*/, data];
-                        case 2: return [4 /*yield*/, ajax(url, options)];
-                        case 3:
-                            data = (_a.sent()).data;
-                            return [2 /*return*/, data];
-                    }
-                });
+        }
+        post(url, body, opts) {
+            return __awaiter(this, void 0, void 0, function* () {
+                const method = 'POST';
+                const headers = {
+                    'Content-Type': 'application/json;charset=utf-8',
+                };
+                const options = {
+                    method,
+                    headers,
+                    body,
+                };
+                if (opts) {
+                    Object.assign(options, opts);
+                }
+                if (this.supportFetch) {
+                    const { data } = yield fetchRequest(url, options);
+                    return data;
+                }
+                else {
+                    const { data } = yield ajax(url, options);
+                    return data;
+                }
             });
-        };
-        return Http;
-    }());
-    var http = new Http();
+        }
+    }
+    const http = new Http();
 
     exports.BASE_REQUEST_OPTIONS = BASE_REQUEST_OPTIONS;
     exports.Http = Http;

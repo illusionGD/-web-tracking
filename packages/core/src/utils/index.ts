@@ -3,6 +3,7 @@ export * from './storage'
 export * from './date'
 
 import { AnyObject } from '../interfaces'
+import { v4 as uuidv4 } from 'uuid'
 
 /**
  * 将对象转成参数
@@ -63,4 +64,11 @@ export function deepCloneObj<T>(obj: AnyObject) {
 /**是否为无效值 */
 export function isInvalidVal(val: any) {
     return [NaN, undefined, null, 'null', 'undefined', 'NaN'].indexOf(val) >= 0
+}
+
+/**
+ * 获取uuid
+ */
+export function getUUid(): string {
+    return uuidv4()
 }

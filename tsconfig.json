@@ -32,11 +32,6 @@
             "types",
         ],
         "baseUrl": ".",
-        "types": [
-            "jest",
-            "mocha",
-            "jquery"
-        ],
     },
     "exclude": [
         "node_modules",
@@ -44,6 +39,7 @@
     ],
     "include": [
         "packages/**/src/**/*",
-        "packages/libs/**/*"
+        "packages/libs/**/*",
+        "@types"
     ]
 }

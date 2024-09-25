@@ -1,15 +1,20 @@
 {
-  "name": "web-tracking",
-  "version": "0.1.6-alpha.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "@web-tracking/core": "workspace:^"
-  }
+    "name": "web-tracking",
+    "version": "0.1.7-alpha.0",
+    "description": "",
+    "main": "src/index.ts",
+    "access": "public",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "url": "https://github.com/illusionGD/web-tracking"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@web-tracking/core": "^0.1.7-alpha.0"
+    },
+    "gitHead": "21da4838f86919ecc8843f2b7cbdb158c201a3d4"
 }
