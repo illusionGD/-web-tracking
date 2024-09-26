@@ -2,8 +2,8 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 22:50:59
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-25 23:29:25
- * @FilePath: \web-tracking\packages\core\src\event\index.ts
+ * @LastEditTime: 2024-09-26 12:21:00
+ * @FilePath: \web-tracking\packages\core\src\libs\eventManager.ts
  * @Description: 事件管理器
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.

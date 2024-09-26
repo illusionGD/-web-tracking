@@ -2,8 +2,8 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 23:29:58
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 00:06:46
- * @FilePath: \web-tracking\packages\core\src\logger\index.ts
+ * @LastEditTime: 2024-09-26 12:19:08
+ * @FilePath: \web-tracking\packages\core\src\libs\logger.ts
  * @Description: log
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.

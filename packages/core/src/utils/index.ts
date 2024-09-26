@@ -1,6 +1,7 @@
 export * from './cookie'
 export * from './storage'
 export * from './date'
+export * from './env'
 
 import { AnyObject } from '../interfaces'
 import { v4 as uuidv4 } from 'uuid'
