@@ -1,4 +1,4 @@
-import { isInvalidVal } from './index'
+import { isInvalidVal } from './common'
 import { LocalStorageWithExpireValType } from '../interfaces'
 import { getCurrentTimeStamp, getFormatDate } from './date'
 

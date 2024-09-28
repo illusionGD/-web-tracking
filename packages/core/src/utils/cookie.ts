@@ -1,4 +1,4 @@
-import { isInvalidVal } from '.'
+import { isInvalidVal } from './common'
 
 /** cookie有效期-8小时 */
 const DEFAULT_COOKIE_EXPIRE_TIME = 1000 * 60 * 60 * 8
