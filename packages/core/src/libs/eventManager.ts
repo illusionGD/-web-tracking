@@ -1,14 +1,16 @@
+import { isBrowser } from '../utils'
+
 /*
  * @Author: IT-hollow
  * @Date: 2024-09-25 22:50:59
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 12:21:00
+ * @LastEditTime: 2024-09-28 16:47:38
  * @FilePath: \web-tracking\packages\core\src\libs\eventManager.ts
  * @Description: 事件管理器
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
-export class EventManager {
+class EventManager {
     /**事件容器 */
     private eventMap = new Map<string, Set<Function>>()
 
@@ -17,9 +19,13 @@ export class EventManager {
     /**
      * 事件监听
      */
-    on(eventName: string, callBack: () => void) {
+    on(eventName: string, callBack: Function) {
         if (!this.eventMap.has(eventName)) {
             this.eventMap.set(eventName, new Set())
+        }
+
+        if (!callBack) {
+            return
         }
 
         const fnSet = this.eventMap.get(eventName)
@@ -32,7 +38,7 @@ export class EventManager {
      * @param eventName 事件名称
      * @param callBack 回调函数
      */
-    off(eventName: string, callBack: () => void) {
+    off(eventName: string, callBack: Function) {
         if (!this.eventMap.has(eventName)) {
             return false
         }
@@ -53,3 +59,11 @@ export class EventManager {
         fnSet.forEach((fn) => fn())
     }
 }
+
+// 单例模式
+if (isBrowser() && !window._webTrackingEventManager_) {
+    const eventManager = new EventManager()
+    window._webTrackingEventManager_ = eventManager
+}
+
+export const eventManager = window._webTrackingEventManager_ as EventManager

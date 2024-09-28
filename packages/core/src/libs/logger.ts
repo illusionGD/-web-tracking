@@ -2,13 +2,13 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 23:29:58
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 12:19:08
+ * @LastEditTime: 2024-09-28 17:28:26
  * @FilePath: \web-tracking\packages\core\src\libs\logger.ts
  * @Description: log
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
-import { getFormatDate } from '../utils'
+import { getFormatDate, isBrowser, isSupportWebTracking } from '../utils'
 enum LogTypeEnum {
     LOG = 'LOG',
     WARN = 'WARN',
@@ -23,29 +23,32 @@ class Logger {
         Object.assign(this.config, config)
     }
 
-    warn(msg: string) {
-        this.log(msg, LogTypeEnum.WARN)
+    warn(...arg: any[]) {
+        this.logOut(LogTypeEnum.WARN, ...arg)
     }
 
-    error(msg: string) {
-        this.log(msg, LogTypeEnum.ERROR)
+    error(...arg: any[]) {
+        this.logOut(LogTypeEnum.ERROR, ...arg)
     }
 
-    log(msg: string, type: LogTypeEnum = LogTypeEnum.LOG) {
-        const str = this.getDefaultPrefix() + msg
+    log(...arg: any[]) {
+        this.logOut(LogTypeEnum.LOG, ...arg)
+    }
+
+    private logOut(type: LogTypeEnum = LogTypeEnum.LOG, ...arg: any[]) {
         const { bandLogTye } = this.config
         if (bandLogTye.includes(type)) {
             return
         }
         switch (type) {
             case LogTypeEnum.LOG:
-                console.log(str)
+                console.log(this.getDefaultPrefix(), ...arg)
                 break
             case LogTypeEnum.WARN:
-                console.warn(str)
+                console.warn(this.getDefaultPrefix(), ...arg)
                 break
             case LogTypeEnum.ERROR:
-                console.error(str)
+                console.error(this.getDefaultPrefix(), ...arg)
                 break
             default:
                 break
@@ -53,16 +56,33 @@ class Logger {
     }
 
     /**
+     * 是否打印日志
+     * @param isLog true | false
+     */
+    setAllowLog(isLog: boolean) {
+        if (isLog) {
+            this.config.bandLogTye.length = 0
+        } else {
+            this.config.bandLogTye.push(
+                LogTypeEnum.ERROR,
+                LogTypeEnum.LOG,
+                LogTypeEnum.WARN
+            )
+        }
+    }
+
+    /**
      * 获取默认log前缀
      */
     getDefaultPrefix() {
-        return `trackLog ~ ${getFormatDate(NaN, 'YYYY-MM-DD hh:mm:ss')}: `
+        return `trackLog__${getFormatDate(NaN, 'YYYY-MM-DD hh:mm:ss')}: `
     }
 }
 
-if (window && !window.logger) {
+// 单例模式
+if (isBrowser() && !window._webTrackingLogger_) {
     const logger = new Logger()
-    window.logger = logger
+    window._webTrackingLogger_ = logger
 }
 
-export default window.logger as Logger
+export default window._webTrackingLogger_ as Logger

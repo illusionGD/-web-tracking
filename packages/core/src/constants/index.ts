@@ -2,13 +2,13 @@
  * @Author: IT-hollow
  * @Date: 2024-05-10 21:10:40
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-12 15:12:27
+ * @LastEditTime: 2024-09-28 16:42:50
  * @Description: 常量文件
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
 
-import { ResponseType } from '../interfaces'
+import { ResponseType, WebInitOptionsType } from '../interfaces'
 
 /**基本请求配置 */
 export const BASE_REQUEST_OPTIONS = {
@@ -36,4 +36,13 @@ export const TIMESTAMP_NUMBER = {
     week: 7 * 24 * 60 * 60 * 1000,
     /**月(30天) */
     month: 30 * 24 * 60 * 60 * 1000,
+}
+
+/** 默认初始化配置 */
+export const WEB_TRACKING_DEFAULT_CONFIGS: WebInitOptionsType = {
+    on: {},
+    sendDataConfig: {
+        requestConfigs: [],
+        threshold: 10,
+    },
 }

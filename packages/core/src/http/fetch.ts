@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-05-10 22:14:01
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 12:19:29
+ * @LastEditTime: 2024-09-26 12:37:44
  * @Description: fetch请求封装
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
@@ -85,7 +85,7 @@ export default async function fetchRequest<T>(
             result
         )
     } catch (error) {
-        logger.error('fetch error')
+        logger.error('fetch error: ' + error)
         return error as any
     }
 }

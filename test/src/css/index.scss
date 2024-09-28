@@ -2,8 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-#page1 {
-    &::placeholder {
-        color: gray;
-    }
+.section-1 {
+    width: 19.2rem;
+    height: 10.8rem;
+    background-size: contain;
+    background-image: url('../images/backgrounds/1背景图.jpg');
+}
+
+.section-2 {
+    width: 19.2rem;
+    height: 10.8rem;
+    background-size: contain;
+    background-image: url('../images/backgrounds/2背景图.jpg');
 }

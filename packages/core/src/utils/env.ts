@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-09-26 12:24:08
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 12:31:30
+ * @LastEditTime: 2024-09-28 14:33:54
  * @FilePath: \web-tracking\packages\core\src\utils\env.ts
  * @Description: 判断运行环境 or 条件
  *
@@ -64,4 +64,20 @@ export function isIOS(): boolean {
  */
 export function isWechatBrowser(): boolean {
     return /micromessenger/i.test(navigator.userAgent)
+}
+
+/**
+ * 是否支持webTracking，检查是否有注入埋点工具
+ */
+export function isSupportWebTracking() {
+    if (isBrowser()) {
+        return !!window._webTracking_
+    }
+}
+/**
+ * 获取webTracking对象
+ * @returns
+ */
+export function getWebTracking() {
+    return isSupportWebTracking() ? window._webTracking_ : {}
 }

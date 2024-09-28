@@ -2,9 +2,7 @@
     "name": "@web-tracking/core",
     "version": "0.1.7-alpha.0",
     "description": "埋点工具核心代码",
-    "main": "dist/index.js",
-    "module": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "src/index.ts",
     "type": "module",
     "access": "public",
     "keywords": [],
@@ -27,6 +25,7 @@
     },
     "gitHead": "21da4838f86919ecc8843f2b7cbdb158c201a3d4",
     "dependencies": {
-        "uuid": "^10.0.0"
+        "uuid": "^10.0.0",
+        "web-vitals": "^4.2.3"
     }
 }
