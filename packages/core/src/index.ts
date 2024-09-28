@@ -7,7 +7,6 @@ export * from './libs/index'
 import { WEB_TRACKING_DEFAULT_CONFIGS } from './constants/index'
 import {
     LocalStorageKeyEnum,
-    WebTrackingType,
     WebInitOptionsType,
     CycleTypeEnum,
 } from './interfaces/index'
@@ -20,10 +19,13 @@ import {
     onPageShow,
     onPageView,
 } from './libs/observer'
+import { getPerformanceInfo, initPerformance } from './libs/performance'
+import { initState } from './libs/state'
 import {
     deepCloneObj,
     getLocalStorage,
     getUUid,
+    getWebTracking,
     isSupportWebTracking,
     setLocalStorage,
 } from './utils/index'
@@ -42,19 +44,19 @@ export function initWebTracking(options: WebInitOptionsType) {
     beforeInit && beforeInit()
     const clientId =
         getLocalStorage<string>(LocalStorageKeyEnum.CLIENT_ID) || getUUid()
-    const webTracking: WebTrackingType = {
+    window._webTracking_ = {
         clientId,
         options: opts,
     }
     setLocalStorage(LocalStorageKeyEnum.CLIENT_ID, clientId)
-    initCycle(options)
 
-    window._webTracking_ = webTracking
+    initCycle(options)
+    initState()
+    initPerformance()
 
     afterInit && afterInit()
 
     eventManager.emitter(CycleTypeEnum.PAGE_VIEW)
-    logger.setAllowLog(true)
     logger.log(window._webTracking_)
 }
 
@@ -75,5 +77,9 @@ function initCycle(options: WebInitOptionsType) {
         if (document.visibilityState === 'visible') {
             eventManager.emitter(CycleTypeEnum.PAGE_SHOW)
         }
+    })
+
+    window.addEventListener('load', () => {
+        getWebTracking().performanceInfo = getPerformanceInfo()
     })
 }

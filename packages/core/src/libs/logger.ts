@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 23:29:58
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-28 17:28:26
+ * @LastEditTime: 2024-09-28 23:51:17
  * @FilePath: \web-tracking\packages\core\src\libs\logger.ts
  * @Description: log
  *
@@ -75,7 +75,7 @@ class Logger {
      * 获取默认log前缀
      */
     getDefaultPrefix() {
-        return `trackLog__${getFormatDate(NaN, 'YYYY-MM-DD hh:mm:ss')}: `
+        return `trackLog__${getFormatDate(NaN, 'YYYY-MM-DD hh:mm:ss')}__`
     }
 }
 

@@ -1,5 +1,12 @@
-import { initWebTracking } from '@web-tracking/core'
+import { getPerformanceInfo, initWebTracking } from '@web-tracking/core'
 $(function () {
+    setTimeout(() => {
+        $('.test').addClass('section-1')
+        console.log(getPerformanceInfo())
+    }, 1000)
+    $('.btn').on('click', () => {
+        $('.test').css('margin-top', '200px')
+    })
     initWebTracking({
         on: {
             beforeInit: () => {

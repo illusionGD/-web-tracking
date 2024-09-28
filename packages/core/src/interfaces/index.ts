@@ -1,3 +1,8 @@
+import {
+    DEFAULT_PERFORMANCE_INFO,
+    DEFAULT_WEB_TRACKING_STATE,
+} from '../constants'
+
 export interface BaseRequestOptionsType {
     method: string
     headers: HeadersInit
@@ -115,8 +120,15 @@ export interface WebInitOptionsType {
     }
 }
 
-export interface WebTrackingType {
+export interface WebTrackingType extends AnyObject {
     /** 设备id，uuid */
     clientId: string
+    /** 配置 */
     options: WebInitOptionsType
+    /** 状态 */
+    state: WebTrackingStateType
+    performanceInfo: PerformanceInfoType
 }
+
+export type PerformanceInfoType = typeof DEFAULT_PERFORMANCE_INFO
+export type WebTrackingStateType = typeof DEFAULT_WEB_TRACKING_STATE

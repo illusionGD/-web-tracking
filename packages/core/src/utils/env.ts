@@ -2,12 +2,14 @@
  * @Author: IT-hollow
  * @Date: 2024-09-26 12:24:08
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-28 14:33:54
+ * @LastEditTime: 2024-09-28 22:51:12
  * @FilePath: \web-tracking\packages\core\src\utils\env.ts
  * @Description: 判断运行环境 or 条件
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
+
+import { WebTrackingType } from "../interfaces"
 
 /**
  * 判断是否为ipad
@@ -78,6 +80,11 @@ export function isSupportWebTracking() {
  * 获取webTracking对象
  * @returns
  */
-export function getWebTracking() {
+export function getWebTracking(): Partial<WebTrackingType> {
     return isSupportWebTracking() ? window._webTracking_ : {}
+}
+
+/** 是否支持性能监控 */
+export function isSupportPerformance() {
+    return !!window.performance
 }

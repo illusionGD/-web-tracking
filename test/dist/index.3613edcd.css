@@ -412,8 +412,15 @@ img, video {
 
 .section-2 {
   background-image: url("2背景图.e9adee09.jpg");
-  background-size: contain;
+  background-size: cover;
   width: 19.2rem;
-  height: 10.8rem;
+  height: 11.8rem;
+}
+
+.section-3 {
+  background-image: url("3背景图.a05adb41.jpg");
+  background-size: cover;
+  width: 19.2rem;
+  height: 20.8rem;
 }
 /*# sourceMappingURL=index.3613edcd.css.map */
