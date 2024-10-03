@@ -21,10 +21,12 @@
         "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^11.1.6",
         "@types/node": "^22.5.5",
+        "@types/ua-parser-js": "^0.7.39",
         "rollup": "^3.29.5"
     },
     "gitHead": "21da4838f86919ecc8843f2b7cbdb158c201a3d4",
     "dependencies": {
+        "ua-parser-js": "^1.0.39",
         "uuid": "^10.0.0",
         "web-vitals": "^4.2.3"
     }
