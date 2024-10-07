@@ -3,4 +3,5 @@ interface Window {
     _webTrackingLogger_?: Logger
     _webTrackingEventManager_?: AnyObject
     _webTracking_?: AnyObject
+    _webTrackingGlobalData_?: any[]
 }

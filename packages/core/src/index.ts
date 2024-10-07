@@ -6,9 +6,9 @@ export * from './libs/index'
 
 import { WEB_TRACKING_DEFAULT_CONFIGS } from './constants/index'
 import {
-    StorageKeyEnum,
     WebInitOptionsType,
     CycleTypeEnum,
+    WebTrackingType,
 } from './interfaces/index'
 import { eventManager } from './libs/eventManager'
 import {
@@ -25,17 +25,15 @@ import {
     onPageView,
 } from './libs/observer'
 import { getPerformanceInfo, initPerformance } from './libs/performance'
+import { initSendDataQueue } from './libs/sendData'
 import { initState } from './libs/state'
 import {
     deepCloneObj,
-    getLocalStorage,
-    getUUid,
     getWebTracking,
     isSupportWebTracking,
-    setLocalStorage,
 } from './utils/index'
 
-export function initWebTracking(options: WebInitOptionsType) {
+export function initWebTracking(options: WebInitOptionsType): WebTrackingType {
     // 单例设计模式，已经初始化不再执行
     if (isSupportWebTracking()) {
         return
@@ -54,6 +52,7 @@ export function initWebTracking(options: WebInitOptionsType) {
         options: opts,
     }
     const sessionIdCacheTime = opts.sessionIdCacheTime
+
     if (
         sessionIdCacheTime !== null &&
         sessionIdCacheTime !== undefined &&
@@ -65,11 +64,13 @@ export function initWebTracking(options: WebInitOptionsType) {
     initCycle(options)
     initState()
     initPerformance()
+    initSendDataQueue()
 
     afterInit && afterInit()
 
     eventManager.emitter(CycleTypeEnum.PAGE_VIEW)
     logger.log(window._webTracking_)
+    return window._webTracking_ as WebTrackingType
 }
 
 /** 初始化生命周期函数 */

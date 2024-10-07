@@ -2,6 +2,7 @@ import {
     DEFAULT_PERFORMANCE_INFO,
     DEFAULT_WEB_TRACKING_STATE,
 } from '../constants'
+import { DataQueueReturnType } from '../libs/sendData'
 
 export interface BaseRequestOptionsType {
     method: string
@@ -66,15 +67,16 @@ export enum CycleTypeEnum {
 }
 
 export interface SendDataType {
-    performance: AnyObject // 性能监控信息（可选）
-    deviceInfo: AnyObject // 设备信息：设备id、浏览器信息、and ios等
-    userInfo: AnyObject // 用户信息（自定义）
-    eventInfo: AnyObject // 事件信息：类型、操作、dom等等，可以自定义
-    type: string // 类型：global、track、click等等
     id: string // uuid
-    timestamp: number // 时间戳
+    clientId: string // 设备id
     sessionId: string // 会话id
     url: string
+    type: string // 类型：global、track、click等等
+    timestamp: number // 时间戳
+    deviceInfo: AnyObject // 设备信息：设备id、浏览器信息、and ios等
+    eventInfo: AnyObject // 事件信息：类型、操作、dom等等，可以自定义
+    performance?: AnyObject // 性能监控信息（可选）
+    userInfo?: AnyObject // 用户信息（自定义）
 }
 
 export interface WebInitOptionsType {
@@ -130,7 +132,10 @@ export interface WebTrackingType extends AnyObject {
     options: WebInitOptionsType
     /** 状态 */
     state: WebTrackingStateType
+    /** 性能监控信息 */
     performanceInfo: PerformanceInfoType
+    /** 上报数据队列 */
+    dataQueue: DataQueueReturnType
 }
 
 export type PerformanceInfoType = typeof DEFAULT_PERFORMANCE_INFO

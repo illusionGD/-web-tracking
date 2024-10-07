@@ -15,7 +15,7 @@ $(function () {
         $('.test').css('margin-top', '200px')
     })
 
-    initWebTracking({
+    const list = initWebTracking({
         sessionIdCacheTime: TIMESTAMP_NUMBER.min * 30,
         on: {
             beforeInit: () => {
@@ -34,5 +34,12 @@ $(function () {
                 console.log('pageHide')
             },
         },
-    })
+        sendDataConfig: {
+            atOnce: false,
+            threshold: 1,
+            customSendData: (data) => {
+                console.log('🚀 ~ data:', data)
+            },
+        },
+    }).dataQueue.get()
 })
