@@ -2,6 +2,7 @@ import {
     getDeviceInfo,
     getPerformanceInfo,
     initWebTracking,
+    TIMESTAMP_NUMBER,
 } from '@web-tracking/core'
 $(function () {
     setTimeout(() => {
@@ -15,6 +16,7 @@ $(function () {
     })
 
     initWebTracking({
+        sessionIdCacheTime: TIMESTAMP_NUMBER.min * 30,
         on: {
             beforeInit: () => {
                 console.log('beforeInit')

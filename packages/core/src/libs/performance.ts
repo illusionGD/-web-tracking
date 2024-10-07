@@ -9,6 +9,7 @@ import { PerformanceInfoType } from '../interfaces'
 import { DEFAULT_PERFORMANCE_INFO } from '../constants'
 import { getStateByName, setStateByName } from './state'
 
+/**初始化性能监控 */
 export function initPerformance() {
     initWebVitals()
     if (!isSupportWebTracking()) {

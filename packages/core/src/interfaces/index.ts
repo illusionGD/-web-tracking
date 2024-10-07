@@ -33,8 +33,9 @@ export enum ResponseType {
     BLOB = 'BLOB',
     ARRAYBUFFER = 'ARRAYBUFFER',
 }
-export enum LocalStorageKeyEnum {
+export enum StorageKeyEnum {
     CLIENT_ID = 'web_tracking_client_id',
+    SESSION_ID = 'web_tracking_session_id',
 }
 export interface AnyObject {
     [key: string]: any
@@ -77,6 +78,8 @@ export interface SendDataType {
 }
 
 export interface WebInitOptionsType {
+    /** sessionId过期时间 */
+    sessionIdCacheTime?: number
     /** 生命周期回调 */
     on?: {
         /** 初始化前 */

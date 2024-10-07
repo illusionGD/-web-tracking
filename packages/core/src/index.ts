@@ -6,11 +6,16 @@ export * from './libs/index'
 
 import { WEB_TRACKING_DEFAULT_CONFIGS } from './constants/index'
 import {
-    LocalStorageKeyEnum,
+    StorageKeyEnum,
     WebInitOptionsType,
     CycleTypeEnum,
 } from './interfaces/index'
 import { eventManager } from './libs/eventManager'
+import {
+    getClientId,
+    getSessionId,
+    refreshSessionIdCacheTime,
+} from './libs/index'
 import logger from './libs/logger'
 import {
     onAfterSendData,
@@ -42,13 +47,20 @@ export function initWebTracking(options: WebInitOptionsType) {
     const { beforeInit, afterInit } = opts.on
 
     beforeInit && beforeInit()
-    const clientId =
-        getLocalStorage<string>(LocalStorageKeyEnum.CLIENT_ID) || getUUid()
+
     window._webTracking_ = {
-        clientId,
+        clientId: getClientId(),
+        sessionId: getSessionId(),
         options: opts,
     }
-    setLocalStorage(LocalStorageKeyEnum.CLIENT_ID, clientId)
+    const sessionIdCacheTime = opts.sessionIdCacheTime
+    if (
+        sessionIdCacheTime !== null &&
+        sessionIdCacheTime !== undefined &&
+        typeof sessionIdCacheTime === 'number'
+    ) {
+        refreshSessionIdCacheTime(sessionIdCacheTime)
+    }
 
     initCycle(options)
     initState()

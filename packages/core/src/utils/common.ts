@@ -1,5 +1,7 @@
-import { AnyObject } from '../interfaces'
+import { AnyObject, StorageKeyEnum } from '../interfaces'
 import { v4 as uuidv4 } from 'uuid'
+import { getLocalStorage, setLocalStorage } from './storage'
+import { isSupportWebTracking } from './env'
 
 /**
  * 将对象转成参数
