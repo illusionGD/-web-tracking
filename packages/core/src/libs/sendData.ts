@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-10-07 14:42:26
  * @LastEditors: hollow
- * @LastEditTime: 2024-10-17 15:33:38
+ * @LastEditTime: 2024-10-17 16:56:00
  * @FilePath: \web-tracking\packages\core\src\libs\sendData.ts
  * @Description: 上报数据
  *
@@ -128,6 +128,9 @@ export async function sendTrackingData() {
             const { method, url, headers, interceptor } = requestConfigs[index]
             const mth = method.toLocaleLowerCase()
             const params = { data: list }
+            // 添加拦截器
+            httpReq.interceptor('req').add(interceptor.request)
+            httpReq.interceptor('res').add(interceptor.response)
             if (mth === 'get') {
                 reqList.push(httpReq.get(url, params))
             } else {

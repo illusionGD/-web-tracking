@@ -24,8 +24,14 @@ export class Http {
             type === 'req' ? this.requestInterceptor : this.responseInterceptor
         return {
             /** 添加拦截器 */
-            add: (fn: Function) => {
-                ic.add(fn)
+            add: (fn: Function | Function[]) => {
+                if (fn instanceof Array) {
+                    for (let index = 0; index < fn.length; index++) {
+                        ic.add(fn[index])
+                    }
+                } else {
+                    ic.add(fn)
+                }
             },
             /** 删除拦截器 */
             del: (fn: Function) => {
