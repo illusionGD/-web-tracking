@@ -41,7 +41,6 @@ function initWebTracking(options: WebInitOptionsType): WebTrackingType {
         sessionId: getSessionId(),
         options: opts,
     }
-    logger.setAllowLog(false)
     const sessionIdCacheTime = opts.sessionIdCacheTime
 
     if (
@@ -96,5 +95,6 @@ function initState() {
 }
 
 ;(() => {
+    logger.setAllowLog(false)
     window.initWebTracking = initWebTracking
 })()
