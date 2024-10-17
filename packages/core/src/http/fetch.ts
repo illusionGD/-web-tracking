@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-05-10 22:14:01
  * @LastEditors: hollow
- * @LastEditTime: 2024-10-17 15:38:38
+ * @LastEditTime: 2024-10-17 23:49:38
  * @Description: fetch请求封装
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
@@ -13,7 +13,7 @@ import {
     ResponseResultType,
     ResponseType,
 } from '../interfaces'
-import logger from '../libs/logger'
+import { logger } from '../libs/logger'
 import { deepCloneObj, formatPostBody, isPlainObject, qsString } from '../utils'
 
 const inital = BASE_REQUEST_OPTIONS

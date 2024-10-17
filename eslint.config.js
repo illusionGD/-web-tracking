@@ -9,8 +9,10 @@ export default [
         ignores: [
             'dist',
             'package/core/dist/*',
+            'package/browser/dist/*',
             '.idea',
             '.vscode',
+            'test/*',
             'node_modules',
         ],
         rules: {

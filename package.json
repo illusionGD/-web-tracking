@@ -5,7 +5,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "build": "rimraf dist && rollup -c rollup.config.js",
+        "build": "rimraf dist && rollup -c rollup.config.js --package=core,browser",
+        "build:core": "rimraf dist && rollup -c rollup.config.js --package=core",
+        "build:browser": "rimraf dist && rollup -c rollup.config.js --package=browser",
         "commit": "git add . && git-cz",
         "push": "npm run commit && git push",
         "build-publish": "npm run build && npm run push && npm run publish",

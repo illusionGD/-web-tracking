@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 23:29:58
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-28 23:51:17
+ * @LastEditTime: 2024-10-17 23:49:04
  * @FilePath: \web-tracking\packages\core\src\libs\logger.ts
  * @Description: log
  *
@@ -85,4 +85,4 @@ if (isBrowser() && !window._webTrackingLogger_) {
     window._webTrackingLogger_ = logger
 }
 
-export default window._webTrackingLogger_ as Logger
+export const logger = window._webTrackingLogger_ as Logger

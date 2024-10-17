@@ -5,7 +5,13 @@ import typescript from '@rollup/plugin-typescript'
 import json from '@rollup/plugin-json'
 import terser from '@rollup/plugin-terser'
 import { rimraf } from 'rimraf'
-
+import minimist from 'minimist'
+const args = minimist(process.argv.slice(2))
+const packages = []
+if (args['package']) {
+    packages.push(...args['package'].split(','))
+    console.log('🚀 ~ packages:', packages)
+}
 const isProduction = process.env.NODE_ENV === 'production'
 /** @type {import('rollup').RollupOptions[]} */
 async function getCommonConfig(subs) {
@@ -46,5 +52,5 @@ async function getCommonConfig(subs) {
     }
     return configs
 }
-const configs = await getCommonConfig(['core', 'web-tracking'])
+const configs = await getCommonConfig(packages.filter((str) => str))
 export default configs

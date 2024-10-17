@@ -1,4 +1,4 @@
-import logger from './logger'
+import { logger } from './logger'
 import { onCLS, onINP, onLCP, onFCP, onTTFB, onFID, Metric } from 'web-vitals'
 import {
     getWebTracking,

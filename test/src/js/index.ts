@@ -1,9 +1,8 @@
 import {
     getDeviceInfo,
     getPerformanceInfo,
-    initWebTracking,
     TIMESTAMP_NUMBER,
-} from 'web-tracking'
+} from '@web-tracking/browser'
 import { onElementVisible } from '@web-tracking/core/src/libs/observer'
 $(function () {
     setTimeout(() => {

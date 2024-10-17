@@ -1,27 +1,33 @@
 {
-  "name": "@web-tracking/core",
-  "version": "1.0.2",
-  "description": "埋点工具核心代码",
-  "main": "dist/index.js",
-  "type": "module",
-  "access": "public",
-  "keywords": [],
-  "repository": {
-    "url": "https://github.com/illusionGD/web-tracking"
-  },
-  "author": "ill",
-  "license": "ISC",
-  "devDependencies": {
-    "@babel/core": "^7.25.2",
-    "@babel/preset-env": "^7.25.4",
-    "@types/node": "^22.5.5",
-    "@types/ua-parser-js": "^0.7.39",
-    "rollup": "^3.29.5"
-  },
-  "gitHead": "2ff841ae810838b79e97039a3b410af1f21db21a",
-  "dependencies": {
-    "ua-parser-js": "^1.0.39",
-    "uuid": "^10.0.0",
-    "web-vitals": "^4.2.3"
-  }
+    "name": "@web-tracking/core",
+    "version": "1.0.2",
+    "description": "埋点工具核心代码",
+    "main": "dist/index.js",
+    "type": "module",
+    "access": "public",
+    "files": [
+        "dist/",
+        "readme.md",
+        "LICENSE",
+        "CHANGELOG.md"
+    ],
+    "keywords": [],
+    "repository": {
+        "url": "https://github.com/illusionGD/web-tracking"
+    },
+    "author": "ill",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.25.2",
+        "@babel/preset-env": "^7.25.4",
+        "@types/node": "^22.5.5",
+        "@types/ua-parser-js": "^0.7.39",
+        "rollup": "^3.29.5"
+    },
+    "gitHead": "6811a7db49c18fb6c8dbdcf0dee3503dcf3e7ea1",
+    "dependencies": {
+        "ua-parser-js": "^1.0.39",
+        "uuid": "^10.0.0",
+        "web-vitals": "^4.2.3"
+    }
 }
