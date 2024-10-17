@@ -11,7 +11,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@web-tracking/core": "workspace:^"
+        "web-tracking": "workspace:^"
     },
     "devDependencies": {
         "@parcel/transformer-postcss": "^2.12.0",

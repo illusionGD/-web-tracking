@@ -13,7 +13,6 @@
         "target": "es6",
         "declaration": true,
         "emitDecoratorMetadata": true,
-        // "module": "commonjs",
         "lib": [
             "esnext",
             "esnext.asynciterable",
@@ -35,8 +34,7 @@
         "node_modules",
         "dist"
     ],
-    "include": [
-        "packages/**/src/**/*",
-        "@types",
-    ]
+    // "include": [
+    //     "@types",
+    // ]
 }

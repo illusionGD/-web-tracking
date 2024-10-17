@@ -35,8 +35,7 @@
         "node_modules",
         "dist"
     ],
-    "include": [
-        "packages/**/src/**/*",
-        "@types",
-    ]
+    // "include": [
+    //     "@types",
+    // ]
 }

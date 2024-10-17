@@ -32,9 +32,13 @@ async function getCommonConfig(subs) {
                 }), // node_modules模块
                 babel({ babelHelpers: 'bundled', exclude: 'node_modules' }),
                 typescript({
-                    tsconfig: './tsconfig.json',
-                    module: 'esnext',
-                    declarationDir: outPathPrefix,
+                    tsconfig: `${subPath}\\tsconfig.json`,
+                    outDir: outPathPrefix,
+                    declaration: true,
+                    emitDecoratorMetadata: true,
+                    // module: 'esnext',
+                    // rootDir: `${inputPathPrefix}`,
+                    // declarationDir: 'dist',
                 }), // ts语法
                 terser(), // 压缩
             ],
@@ -42,5 +46,5 @@ async function getCommonConfig(subs) {
     }
     return configs
 }
-const configs = await getCommonConfig(['core'])
+const configs = await getCommonConfig(['core', 'web-tracking'])
 export default configs

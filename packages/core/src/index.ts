@@ -51,6 +51,7 @@ export function initWebTracking(options: WebInitOptionsType): WebTrackingType {
         sessionId: getSessionId(),
         options: opts,
     }
+    logger.setAllowLog(false)
     const sessionIdCacheTime = opts.sessionIdCacheTime
 
     if (
@@ -75,12 +76,15 @@ export function initWebTracking(options: WebInitOptionsType): WebTrackingType {
 
 /** 初始化生命周期函数 */
 function initCycle(options: WebInitOptionsType) {
-    const { pageHide, pageView, afterSend, beforeSend, pageShow } = options.on
-    onPageView(pageView)
-    onPageShow(pageShow)
-    onPageHide(pageHide)
-    onBeforeSendData(afterSend)
-    onAfterSendData(beforeSend)
+    if (options.on) {
+        const { pageHide, pageView, afterSend, beforeSend, pageShow } =
+            options.on
+        onPageView(pageView)
+        onPageShow(pageShow)
+        onPageHide(pageHide)
+        onBeforeSendData(afterSend)
+        onAfterSendData(beforeSend)
+    }
 
     window.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
