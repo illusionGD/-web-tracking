@@ -6,7 +6,13 @@ export default [
     js.configs.recommended,
     ...tseslint.configs.recommended,
     {
-        ignores: ['dist', '.idea', '.vscode', 'node_modules'],
+        ignores: [
+            'dist',
+            'package/core/dist/*',
+            '.idea',
+            '.vscode',
+            'node_modules',
+        ],
         rules: {
             'no-unused-vars': 'off',
             'no-undef': 'off',
@@ -18,6 +24,8 @@ export default [
             '@typescript-eslint/no-unsafe-function-type': 'off',
             'no-empty': 'off',
             'no-redeclare': 'off',
+            'no-useless-escape': 'off',
+            'no-cond-assign': 'off',
         },
         languageOptions: {
             ecmaVersion: 2022,

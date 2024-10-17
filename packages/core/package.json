@@ -2,7 +2,7 @@
     "name": "@web-tracking/core",
     "version": "0.1.7-alpha.0",
     "description": "埋点工具核心代码",
-    "main": "src/index.ts",
+    "main": "dist/index.js",
     "type": "module",
     "access": "public",
     "keywords": [],

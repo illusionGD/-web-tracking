@@ -1,4 +1,5 @@
 import { DEFAULT_PERFORMANCE_INFO, DEFAULT_WEB_TRACKING_STATE } from '../constants';
+import { DataQueueReturnType } from '../libs/sendData';
 export interface BaseRequestOptionsType {
     method: string;
     headers: HeadersInit;
@@ -26,8 +27,9 @@ export declare enum ResponseType {
     BLOB = "BLOB",
     ARRAYBUFFER = "ARRAYBUFFER"
 }
-export declare enum LocalStorageKeyEnum {
-    CLIENT_ID = "web_tracking_client_id"
+export declare enum StorageKeyEnum {
+    CLIENT_ID = "web_tracking_client_id",
+    SESSION_ID = "web_tracking_session_id"
 }
 export interface AnyObject {
     [key: string]: any;
@@ -36,7 +38,7 @@ export interface LocalStorageWithExpireValType {
     value: any;
     expire: number;
 }
-export declare enum CycleTypeEnum {
+export declare enum LifeCycleEnum {
     /** 初始化前 */
     BEFORE_INIT = "BEFORE_INIT",
     /** 初始化后 */
@@ -49,23 +51,26 @@ export declare enum CycleTypeEnum {
     PAGE_HIDE = "PAGE_HIDE",
     /** 页面关闭 */
     BEFORE_UNLOADED = "BEFORE_UNLOADED",
-    /** 发生数据之前 */
+    /** 发送数据之前 */
     BEFORE_SEND_DATA = "BEFORE_SEND_DATA",
-    /** 发生数据之后 */
+    /** 发送数据之后 */
     AFTER_SEND_DATA = "AFTER_SEND_DATA"
 }
 export interface SendDataType {
-    performance: AnyObject;
-    deviceInfo: AnyObject;
-    userInfo: AnyObject;
-    eventInfo: AnyObject;
-    type: string;
     id: string;
-    timestamp: number;
+    clientId: string;
     sessionId: string;
     url: string;
+    type: string;
+    timestamp: number;
+    deviceInfo: AnyObject;
+    eventInfo: AnyObject;
+    performance?: AnyObject;
+    userInfo?: AnyObject;
 }
 export interface WebInitOptionsType {
+    /** sessionId过期时间 */
+    sessionIdCacheTime?: number;
     /** 生命周期回调 */
     on?: {
         /** 初始化前 */
@@ -75,12 +80,12 @@ export interface WebInitOptionsType {
         pageView?: () => void;
         pageHide?: () => void;
         pageShow?: () => void;
-        /** 发生数据前 */
-        sendBefore?: () => void;
-        /** 发生数据后 */
-        sendAfter?: () => void;
+        /** 发送数据前 */
+        beforeSend?: (data?: SendDataType[]) => void;
+        /** 发送数据后 */
+        afterSend?: (data?: SendDataType[]) => void;
     };
-    /** 发生数据配置 */
+    /** 发送数据配置 */
     sendDataConfig?: {
         /** 上报阈值，多少条数据一起上报 */
         threshold?: number;
@@ -95,16 +100,16 @@ export interface WebInitOptionsType {
             /** http请求方法 */
             method: string;
             /** http请求头配置 */
-            headers: HeadersInit;
+            headers?: HeadersInit;
             /** 拦截器 */
-            interceptor: {
+            interceptor?: {
                 /** 请求拦截器 */
-                request: [];
+                request?: [];
                 /** 响应拦截器 */
-                response: [];
+                response?: [];
             };
         }[];
-        /**自定义请求，requestConfigs失效 */
+        /**自定义请求，配置后-requestConfigs失效 */
         customSendData?: (data: SendDataType[]) => void;
     };
 }
@@ -115,7 +120,10 @@ export interface WebTrackingType extends AnyObject {
     options: WebInitOptionsType;
     /** 状态 */
     state: WebTrackingStateType;
+    /** 性能监控信息 */
     performanceInfo: PerformanceInfoType;
+    /** 上报数据队列 */
+    dataQueue: DataQueueReturnType;
 }
 export type PerformanceInfoType = typeof DEFAULT_PERFORMANCE_INFO;
 export type WebTrackingStateType = typeof DEFAULT_WEB_TRACKING_STATE;

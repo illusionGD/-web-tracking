@@ -25,7 +25,7 @@ export declare function clearLocalStorage(): void;
  * @param value
  * @param expireTime 过期时间，单位ms
  */
-export declare function setLocalItemWithExpire(key: string, value: string, expireTime: number): void;
+export declare function setLocalItemWithExpire(key: string, value: string | number, expireTime: number): void;
 /**
  * 获取localStorage（自带命名空间+自动过期时间）
  * @param key

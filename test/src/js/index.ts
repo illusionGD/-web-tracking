@@ -4,6 +4,7 @@ import {
     initWebTracking,
     TIMESTAMP_NUMBER,
 } from '@web-tracking/core'
+import { onElementVisible } from '@web-tracking/core/src/libs/observer'
 $(function () {
     setTimeout(() => {
         $('.test').addClass('section-1')
@@ -14,8 +15,10 @@ $(function () {
     $('.btn').on('click', () => {
         $('.test').css('margin-top', '200px')
     })
-
-    const list = initWebTracking({
+    onElementVisible($('.btn')[0], (e) => {
+        console.log(e)
+    })
+    initWebTracking({
         sessionIdCacheTime: TIMESTAMP_NUMBER.min * 30,
         on: {
             beforeInit: () => {
@@ -41,5 +44,5 @@ $(function () {
                 console.log('🚀 ~ data:', data)
             },
         },
-    }).dataQueue.get()
+    })
 })

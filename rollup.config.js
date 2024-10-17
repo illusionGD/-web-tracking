@@ -3,7 +3,8 @@ import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from '@rollup/plugin-typescript'
 import json from '@rollup/plugin-json'
-import rimraf from 'rimraf'
+import terser from '@rollup/plugin-terser'
+import { rimraf } from 'rimraf'
 
 const isProduction = process.env.NODE_ENV === 'production'
 /** @type {import('rollup').RollupOptions[]} */
@@ -35,7 +36,7 @@ async function getCommonConfig(subs) {
                     module: 'esnext',
                     declarationDir: outPathPrefix,
                 }), // ts语法
-                isProduction && terser(), // 压缩
+                terser(), // 压缩
             ],
         })
     }
