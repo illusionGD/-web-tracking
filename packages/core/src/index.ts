@@ -34,10 +34,10 @@ import {
 } from './utils/index'
 
 export function initWebTracking(options: WebInitOptionsType): WebTrackingType {
-    // 单例设计模式，已经初始化不再执行
     if (isSupportWebTracking()) {
         return
     }
+
     const opts = Object.assign(
         deepCloneObj(WEB_TRACKING_DEFAULT_CONFIGS),
         options

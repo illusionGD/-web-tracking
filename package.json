@@ -8,6 +8,7 @@
         "build": "rimraf dist && rollup -c rollup.config.js",
         "commit": "git add . && git-cz",
         "push": "npm run commit && git push",
+        "build-publish": "npm run build && npm run push && npm run publish",
         "lint": "eslint --ignore-pattern test/*",
         "husky:prepare": "husky install",
         "change:npm": "nrm use npm",
