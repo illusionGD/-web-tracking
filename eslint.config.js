@@ -16,6 +16,8 @@ export default [
             'no-prototype-builtins': 'off',
             '@typescript-eslint/no-unused-expressions': 'off',
             '@typescript-eslint/no-unsafe-function-type': 'off',
+            'no-empty': 'off',
+            'no-redeclare': 'off',
         },
         languageOptions: {
             ecmaVersion: 2022,

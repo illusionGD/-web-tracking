@@ -8,8 +8,7 @@
         "build": "rimraf dist && rollup -c rollup.config.js",
         "commit": "git add . && git-cz",
         "push": "npm run commit && git push",
-        "lint": "eslint",
-        "lint:fix": "eslint \"**/*.{ts,tsx,js}\" --fix",
+        "lint": "eslint --ignore-pattern test/*",
         "husky:prepare": "husky install",
         "publish": "npx lerna publish --force-publish",
         "publish:major": "npx lerna publish major --force-publish",
@@ -49,7 +48,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run lint:fix"
+            "commit-msg": "npm run lint"
         }
     },
     "config": {
