@@ -16,6 +16,7 @@
         "change:npm": "nrm use npm",
         "publish": "npx lerna publish",
         "publish:cur": "npx lerna publish from-package",
+        "publish:cur-no-tag": "npx lerna publish from-package --no-git-tag-version --no-push",
         "publish:cur-browser": "npx lerna publish from-package",
         "publish:force": "npx lerna publish --force-publish",
         "publish:major": "npx lerna publish major",
