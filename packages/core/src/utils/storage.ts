@@ -1,4 +1,4 @@
-import { isInvalidVal } from './index'
+import { isInvalidVal } from './common'
 import { LocalStorageWithExpireValType } from '../interfaces'
 import { getCurrentTimeStamp, getFormatDate } from './date'
 
@@ -47,7 +47,7 @@ export function clearLocalStorage(): void {
  */
 export function setLocalItemWithExpire(
     key: string,
-    value: string,
+    value: string | number,
     expireTime: number
 ) {
     const currentTime = new Date().getTime()
@@ -55,7 +55,7 @@ export function setLocalItemWithExpire(
     const data = {
         value,
         expire,
-        date: getFormatDate(expire),
+        date: getFormatDate(expire, 'YYYY-MM-DD hh:mm:ss'),
     }
     setLocalStorage(key, data)
 }
@@ -90,7 +90,6 @@ export function getLocalItemWithExpire<T>(key: string): T | string {
 export function clearExpiredLocalStorage() {
     for (let i = 0; i < localStorage.length; i++) {
         const key = localStorage.key(i) || ''
-        console.log('🚀 ~ key:', key)
         if (isWidthExpireVal(key)) {
             const currentTime = getCurrentTimeStamp()
             const { expire } =

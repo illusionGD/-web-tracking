@@ -8,3 +8,5 @@ export declare function getCurrentTimeStamp(): number;
  * @param timestamp
  */
 export declare function getFormatDate(timestamp?: number, format?: 'YYYY-MM-DD hh:mm:ss' | 'YYYY-MM-DD'): string;
+/** 获取当前时间戳 */
+export declare function getCurrentTimestamp(): number;

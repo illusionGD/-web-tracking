@@ -1,26 +1,17 @@
 {
-    "$schema": "node_modules/lerna/schemas/lerna-schema.json",
-    "version": "0.1.7-alpha.0",
-    "packages": [
-        "packages/*"
-    ],
-    "command": {
-        "version": {
-            "allowBranch": [
-                "master",
-                "release/*"
-            ],
-            "conventional-commits": true,
-            "conventional-graduate": true
-        },
-        "publish": {
-            "ignoreChanges": [
-                "src",
-                "node_modules"
-            ],
-            "contents": "dist",
-            "registry": "https://registry.npmjs.org/"
-        }
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "1.0.5",
+  "packages": ["packages/*"],
+  "command": {
+    "version": {
+      "allowBranch": ["master", "release/*"],
+      "conventional-commits": true,
+      "conventional-graduate": true
     },
-    "npmClient": "pnpm"
+    "publish": {
+      "ignoreChanges": ["src", "node_modules"],
+      "registry": "https://registry.npmjs.org/"
+    }
+  },
+  "npmClient": "pnpm"
 }

@@ -5,16 +5,23 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "build": "rimraf dist && rollup -c rollup.config.js",
+        "build": "rimraf dist && rollup -c rollup.config.js --package=core,browser",
+        "build:core": "rimraf dist && rollup -c rollup.config.js --package=core",
+        "build:browser": "rimraf dist && rollup -c rollup.config.js --package=browser",
         "commit": "git add . && git-cz",
         "push": "npm run commit && git push",
-        "lint": "eslint",
-        "lint:fix": "eslint \"**/*.{ts,tsx,js}\" --fix",
+        "build-publish": "npm run build && npm run push && npm run publish",
+        "lint": "eslint --ignore-pattern test/*",
         "husky:prepare": "husky install",
-        "publish": "npx lerna publish --force-publish",
-        "publish:major": "npx lerna publish major --force-publish",
-        "publish:minor": "npx lerna publish minor --force-publish",
-        "publish:patch": "npx lerna publish patch --force-publish",
+        "change:npm": "nrm use npm",
+        "publish": "npx lerna publish",
+        "publish:cur": "npx lerna publish from-package",
+        "publish:cur-no-tag": "npx lerna publish from-package --no-git-tag-version --no-push",
+        "publish:cur-browser": "npx lerna publish from-package",
+        "publish:force": "npx lerna publish --force-publish",
+        "publish:major": "npx lerna publish major",
+        "publish:minor": "npx lerna publish minor",
+        "publish:patch": "npx lerna publish patch",
         "publish:pre": "npx lerna publish --pre-dist-tag prerelease",
         "list": "npx lerna list",
         "changed": "npx lerna changed"
@@ -30,6 +37,7 @@
         "@rollup/plugin-commonjs": "^26.0.1",
         "@rollup/plugin-json": "^6.1.0",
         "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-terser": "^0.4.4",
         "@rollup/plugin-typescript": "^11.1.6",
         "cz-conventional-changelog": "^3.3.0",
         "eslint": "^9.11.0",
@@ -39,6 +47,7 @@
         "lerna": "^7.4.2",
         "lint-staged": "^15.2.10",
         "prettier": "3.3.3",
+        "rollup-plugin-dts": "^6.1.1",
         "typescript": "^5.6.2",
         "typescript-eslint": "^8.6.0"
     },
@@ -49,7 +58,7 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "commit-msg": "npm run lint"
         }
     },
     "config": {

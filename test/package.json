@@ -10,7 +10,9 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "dependencies": {},
+    "dependencies": {
+        "web-tracking": "workspace:^"
+    },
     "devDependencies": {
         "@parcel/transformer-postcss": "^2.12.0",
         "@parcel/transformer-sass": "^2.12.0",

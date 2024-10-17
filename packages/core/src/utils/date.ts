@@ -32,3 +32,8 @@ export function getFormatDate(
 
     return dateStr
 }
+
+/** 获取当前时间戳 */
+export function getCurrentTimestamp() {
+    return new Date().getTime()
+}

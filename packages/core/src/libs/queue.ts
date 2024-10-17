@@ -2,8 +2,8 @@
  * @Author: IT-hollow
  * @Date: 2024-09-25 23:05:37
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 00:45:59
- * @FilePath: \web-tracking\packages\core\src\queue\index.ts
+ * @LastEditTime: 2024-09-26 12:19:43
+ * @FilePath: \web-tracking\packages\core\src\libs\queue.ts
  * @Description: 任务队列
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.

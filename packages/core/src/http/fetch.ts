@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-05-10 22:14:01
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-26 00:03:16
+ * @LastEditTime: 2024-10-17 23:49:38
  * @Description: fetch请求封装
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
@@ -13,14 +13,18 @@ import {
     ResponseResultType,
     ResponseType,
 } from '../interfaces'
-import logger from '../logger'
+import { logger } from '../libs/logger'
 import { deepCloneObj, formatPostBody, isPlainObject, qsString } from '../utils'
 
 const inital = BASE_REQUEST_OPTIONS
 
 export default async function fetchRequest<T>(
     url: string,
-    config?: Partial<BaseRequestOptionsType>
+    config?: Partial<BaseRequestOptionsType>,
+    interceptor?: {
+        req?: Function[]
+        res?: Function[]
+    }
 ): Promise<ResponseResultType<T>> {
     if (typeof url !== 'string')
         throw new TypeError('url must be required and of string type')
@@ -36,7 +40,7 @@ export default async function fetchRequest<T>(
         url += `${url.includes('?') ? '' : '?'}${paramsStr}`
     }
 
-    const bodyInit = {
+    let bodyInit = {
         method: method?.toUpperCase(),
         headers,
         credentials,
@@ -49,6 +53,15 @@ export default async function fetchRequest<T>(
                 body,
                 headers['Content-Type']
             ) as BodyInit
+        }
+    }
+
+    // 请求拦截器
+    if (interceptor && interceptor.req) {
+        const reqIc = interceptor.req
+        for (let index = 0; index < reqIc.length; index++) {
+            const fn = reqIc[index]
+            bodyInit = fn(bodyInit) || bodyInit
         }
     }
 
@@ -78,14 +91,23 @@ export default async function fetchRequest<T>(
                     break
             }
         }
-        return Object.assign(
+        const newResult = Object.assign(
             {
                 data,
             },
             result
         )
+        // 响应拦截器
+        if (interceptor && interceptor.res) {
+            const resIc = interceptor.res
+            for (let index = 0; index < resIc.length; index++) {
+                const fn = resIc[index]
+                fn(newResult)
+            }
+        }
+        return newResult
     } catch (error) {
-        logger.error('fetch error')
+        logger.error('fetch error: ' + error)
         return error as any
     }
 }

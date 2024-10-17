@@ -13,7 +13,7 @@
         "target": "es6",
         "declaration": true,
         "emitDecoratorMetadata": true,
-        "module": "commonjs",
+        // "module": "commonjs",
         "lib": [
             "esnext",
             "esnext.asynciterable",
@@ -21,7 +21,6 @@
             "es2016"
         ],
         "sourceMap": true,
-        "outDir": "./dist",
         "noEmit": true,
         "incremental": true,
         "strict": true,
@@ -31,7 +30,6 @@
             "./node_modules/@types",
             "types",
         ],
-        "baseUrl": ".",
     },
     "exclude": [
         "node_modules",
@@ -39,7 +37,6 @@
     ],
     "include": [
         "packages/**/src/**/*",
-        "packages/libs/**/*",
-        "@types"
+        "@types",
     ]
 }

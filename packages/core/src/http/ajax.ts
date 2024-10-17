@@ -2,7 +2,7 @@
  * @Author: IT-hollow
  * @Date: 2024-05-14 21:42:51
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-21 15:27:51
+ * @LastEditTime: 2024-10-17 15:54:14
  * @Description: xhr ajax请求封装
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
@@ -14,13 +14,25 @@ const defaultOptions = BASE_REQUEST_OPTIONS
 
 function ajax<T>(
     url: string,
-    options: Partial<BaseRequestOptionsType>
+    options: Partial<BaseRequestOptionsType>,
+    interceptor?: {
+        req?: Function[]
+        res?: Function[]
+    }
 ): Promise<ResponseResultType<T>> {
-    const { method, params, body, headers } = Object.assign(
-        {},
-        defaultOptions,
-        options
-    )
+    const p = Object.assign({}, defaultOptions, options)
+
+    // 请求拦截器
+    if (interceptor && interceptor.req) {
+        const reqIc = interceptor.req
+        for (let index = 0; index < reqIc.length; index++) {
+            const fn = reqIc[index]
+            fn(p)
+        }
+    }
+
+    const { method, params, body, headers } = p
+
     const xhr = new XMLHttpRequest()
 
     const paramStr = qsString(params)
@@ -63,9 +75,22 @@ function ajax<T>(
             result.statusText = statusText
 
             if (status >= 200 && status < 400) {
-                resolve(Object.assign({
-                    data: JSON.parse(xhr.response)
-                }, result))
+                const newResult = Object.assign(
+                    {
+                        data: JSON.parse(xhr.response),
+                    },
+                    result
+                )
+                // 响应拦截器
+                if (interceptor && interceptor.res) {
+                    const resIc = interceptor.res
+                    for (let index = 0; index < resIc.length; index++) {
+                        const fn = resIc[index]
+                        fn(newResult)
+                    }
+                }
+
+                resolve(newResult)
             } else {
                 reject(result)
             }
