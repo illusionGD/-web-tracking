@@ -24,7 +24,7 @@
     "@types/ua-parser-js": "^0.7.39",
     "rollup": "^3.29.5"
   },
-  "gitHead": "87f25a1b7cf08ce48a63f1758e6c88e41da07b31",
+  "gitHead": "eabd5d171247f2ec37dba4c6faa2c6102af80716",
   "dependencies": {
     "ua-parser-js": "^1.0.39",
     "uuid": "^10.0.0",

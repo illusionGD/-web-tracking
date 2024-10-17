@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@web-tracking/core": "workspace:^"
+    "@web-tracking/core": "^1.0.5"
   },
-  "gitHead": "87f25a1b7cf08ce48a63f1758e6c88e41da07b31"
+  "gitHead": "eabd5d171247f2ec37dba4c6faa2c6102af80716"
 }
