@@ -15,6 +15,7 @@ export default [
             '@typescript-eslint/no-unused-vars': 'off',
             'no-prototype-builtins': 'off',
             '@typescript-eslint/no-unused-expressions': 'off',
+            '@typescript-eslint/no-unsafe-function-type': 'off',
         },
         languageOptions: {
             ecmaVersion: 2022,

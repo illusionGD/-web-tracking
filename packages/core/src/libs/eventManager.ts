@@ -4,7 +4,7 @@ import { isBrowser } from '../utils'
  * @Author: IT-hollow
  * @Date: 2024-09-25 22:50:59
  * @LastEditors: hollow
- * @LastEditTime: 2024-09-28 16:47:38
+ * @LastEditTime: 2024-10-07 17:28:27
  * @FilePath: \web-tracking\packages\core\src\libs\eventManager.ts
  * @Description: 事件管理器
  *
@@ -49,14 +49,14 @@ class EventManager {
     /**
      * 事件触发器
      */
-    emitter(eventName: string) {
+    emitter(eventName: string, ...arg) {
         if (!this.eventMap.has(eventName)) {
             return false
         }
 
         const fnSet = this.eventMap.get(eventName)
 
-        fnSet.forEach((fn) => fn())
+        fnSet.forEach((fn) => fn(...arg))
     }
 }
 

@@ -2,28 +2,43 @@
  * @Author: IT-hollow
  * @Date: 2024-10-07 14:42:26
  * @LastEditors: hollow
- * @LastEditTime: 2024-10-07 16:48:04
+ * @LastEditTime: 2024-10-17 15:33:38
  * @FilePath: \web-tracking\packages\core\src\libs\sendData.ts
  * @Description: 上报数据
  *
  * Copyright (c) 2024 by efun, All Rights Reserved.
  */
 
-import { SendDataType } from '../interfaces'
-import {
-    getCurrentTimestamp,
-    getUUid,
-    getWebTracking,
-    isInvalidVal,
-} from '../utils'
+import { Http } from '../http'
+import { LifeCycleEnum, SendDataType } from '../interfaces'
+import { getCurrentTimestamp, getUUid, getWebTracking } from '../utils'
 import { getClientId, getDeviceInfo, getSessionId } from './device'
-import logger from './logger'
+import { eventManager } from './eventManager'
 
-function getQueueOptions() {
+/** 创建全局数据队列操作 */
+function createGlobalDataQueueOptions() {
     const globalData: Partial<SendDataType>[] =
         window['_webTrackingGlobalData_'] || []
+
     const get = (): SendDataType[] => {
         return window._webTrackingGlobalData_
+    }
+
+    const size = () => {
+        return get().length
+    }
+
+    const out = (limit?: number): SendDataType[] => {
+        if (limit === 0) {
+            return []
+        }
+
+        const list = get()
+        if (!limit) {
+            return list.splice(0, limit)
+        }
+
+        return list.splice(0)
     }
 
     const add = (data: Partial<SendDataType>) => {
@@ -31,12 +46,12 @@ function getQueueOptions() {
         const queue = get()
         queue.push(Object.assign(defaultData, data))
         // 如果配置了立刻上传
-        if (isSendData()) {
+        if (isMeetSendData()) {
             sendTrackingData()
         }
     }
 
-    const isSendData = () => {
+    const isMeetSendData = () => {
         const webTracking = getWebTracking()
         const { sendDataConfig } = webTracking.options
         const { threshold, atOnce } = sendDataConfig
@@ -50,20 +65,26 @@ function getQueueOptions() {
     })
 
     return {
-        get,
+        /** 大小 */
+        size,
+        /** 入队 */
         add,
-        isSendData,
+        /** 出队列 */
+        out,
+        /** 是否满足上传数据条件 */
+        isMeetSendData,
     }
 }
 
 /**初始化上报数据队列 */
 export function initSendDataQueue() {
     const webTracking = getWebTracking()
+
     if (!webTracking.dataQueue) {
-        webTracking.dataQueue = getQueueOptions()
+        webTracking.dataQueue = createGlobalDataQueueOptions()
     }
 
-    if (webTracking.dataQueue.isSendData()) {
+    if (webTracking.dataQueue.isMeetSendData()) {
         sendTrackingData()
     }
 }
@@ -85,26 +106,41 @@ export function getDefaultSendData(): SendDataType {
 }
 
 /** 上报埋点数据 */
-export function sendTrackingData() {
+export async function sendTrackingData() {
     const webTracking = getWebTracking()
-    const { sendDataConfig } = webTracking.options
+    const { sendDataConfig, on } = webTracking.options
     const { customSendData, requestConfigs } = sendDataConfig
     const dataQueue = webTracking.dataQueue
-    const list = dataQueue.get().splice(0)
+    const list = dataQueue.out()
     if (!list.length) {
         return
     }
+    eventManager.emitter(LifeCycleEnum.BEFORE_SEND_DATA, list)
     if (customSendData) {
-        customSendData(list)
+        await customSendData(list)
+        eventManager.emitter(LifeCycleEnum.AFTER_SEND_DATA)
         return
     }
-    // const reqList = []
-    // if (requestConfigs.length) {
-    //     for (let index = 0; index < requestConfigs.length; index++) {
-    //         const config = requestConfigs[index];
-
-    //     }
-    // }
+    if (requestConfigs.length) {
+        const reqList = []
+        const httpReq = new Http()
+        for (let index = 0; index < requestConfigs.length; index++) {
+            const { method, url, headers, interceptor } = requestConfigs[index]
+            const mth = method.toLocaleLowerCase()
+            const params = { data: list }
+            if (mth === 'get') {
+                reqList.push(httpReq.get(url, params))
+            } else {
+                reqList.push(
+                    httpReq.post(url, params, headers ? { headers } : null)
+                )
+            }
+        }
+        await Promise.all(reqList)
+    }
+    eventManager.emitter(LifeCycleEnum.AFTER_SEND_DATA, list)
 }
 
-export type DataQueueReturnType = ReturnType<typeof getQueueOptions>
+export type DataQueueReturnType = ReturnType<
+    typeof createGlobalDataQueueOptions
+>

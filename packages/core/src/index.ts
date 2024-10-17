@@ -7,7 +7,7 @@ export * from './libs/index'
 import { WEB_TRACKING_DEFAULT_CONFIGS } from './constants/index'
 import {
     WebInitOptionsType,
-    CycleTypeEnum,
+    LifeCycleEnum,
     WebTrackingType,
 } from './interfaces/index'
 import { eventManager } from './libs/eventManager'
@@ -68,27 +68,27 @@ export function initWebTracking(options: WebInitOptionsType): WebTrackingType {
 
     afterInit && afterInit()
 
-    eventManager.emitter(CycleTypeEnum.PAGE_VIEW)
+    eventManager.emitter(LifeCycleEnum.PAGE_VIEW)
     logger.log(window._webTracking_)
     return window._webTracking_ as WebTrackingType
 }
 
 /** 初始化生命周期函数 */
 function initCycle(options: WebInitOptionsType) {
-    const { pageHide, pageView, sendAfter, sendBefore, pageShow } = options.on
+    const { pageHide, pageView, afterSend, beforeSend, pageShow } = options.on
     onPageView(pageView)
     onPageShow(pageShow)
     onPageHide(pageHide)
-    onBeforeSendData(sendBefore)
-    onAfterSendData(sendAfter)
+    onBeforeSendData(afterSend)
+    onAfterSendData(beforeSend)
 
     window.addEventListener('visibilitychange', () => {
         if (document.visibilityState === 'hidden') {
-            eventManager.emitter(CycleTypeEnum.PAGE_HIDE)
+            eventManager.emitter(LifeCycleEnum.PAGE_HIDE)
         }
 
         if (document.visibilityState === 'visible') {
-            eventManager.emitter(CycleTypeEnum.PAGE_SHOW)
+            eventManager.emitter(LifeCycleEnum.PAGE_SHOW)
         }
     })
 

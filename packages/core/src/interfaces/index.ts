@@ -47,7 +47,7 @@ export interface LocalStorageWithExpireValType {
     expire: number
 }
 
-export enum CycleTypeEnum {
+export enum LifeCycleEnum {
     /** 初始化前 */
     BEFORE_INIT = 'BEFORE_INIT',
     /** 初始化后 */
@@ -60,9 +60,9 @@ export enum CycleTypeEnum {
     PAGE_HIDE = 'PAGE_HIDE',
     /** 页面关闭 */
     BEFORE_UNLOADED = 'BEFORE_UNLOADED',
-    /** 发生数据之前 */
+    /** 发送数据之前 */
     BEFORE_SEND_DATA = 'BEFORE_SEND_DATA',
-    /** 发生数据之后 */
+    /** 发送数据之后 */
     AFTER_SEND_DATA = 'AFTER_SEND_DATA',
 }
 
@@ -91,12 +91,12 @@ export interface WebInitOptionsType {
         pageView?: () => void
         pageHide?: () => void
         pageShow?: () => void
-        /** 发生数据前 */
-        sendBefore?: () => void
-        /** 发生数据后 */
-        sendAfter?: () => void
+        /** 发送数据前 */
+        beforeSend?: (data?: SendDataType[]) => void
+        /** 发送数据后 */
+        afterSend?: (data?: SendDataType[]) => void
     }
-    /** 发生数据配置 */
+    /** 发送数据配置 */
     sendDataConfig?: {
         /** 上报阈值，多少条数据一起上报 */
         threshold?: number
@@ -111,16 +111,16 @@ export interface WebInitOptionsType {
             /** http请求方法 */
             method: string
             /** http请求头配置 */
-            headers: HeadersInit
+            headers?: HeadersInit
             /** 拦截器 */
-            interceptor: {
+            interceptor?: {
                 /** 请求拦截器 */
-                request: []
+                request?: []
                 /** 响应拦截器 */
-                response: []
+                response?: []
             }
         }[]
-        /**自定义请求，requestConfigs失效 */
+        /**自定义请求，配置后-requestConfigs失效 */
         customSendData?: (data: SendDataType[]) => void
     }
 }
