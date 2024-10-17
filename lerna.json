@@ -1,23 +1,15 @@
 {
   "$schema": "node_modules/lerna/schemas/lerna-schema.json",
   "version": "1.0.0",
-  "packages": [
-    "packages/*"
-  ],
+  "packages": ["packages/*"],
   "command": {
     "version": {
-      "allowBranch": [
-        "master",
-        "release/*"
-      ],
+      "allowBranch": ["master", "release/*"],
       "conventional-commits": true,
       "conventional-graduate": true
     },
     "publish": {
-      "ignoreChanges": [
-        "src",
-        "node_modules"
-      ],
+      "ignoreChanges": ["src", "node_modules"],
       "contents": "dist",
       "registry": "https://registry.npmjs.org/"
     }
