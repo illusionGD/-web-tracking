@@ -66,5 +66,8 @@
             "path": "./node_modules/cz-conventional-changelog",
             "defaultScope": "global"
         }
+    },
+    "dependencies": {
+        "web-tracking": "file:"
     }
 }
